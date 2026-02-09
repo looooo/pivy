@@ -29,8 +29,17 @@ class DeviceHandler:
         self.manager = manager
 
     def setModifiers(self, soevent, qevent):
-        # FIXME: How do we get the time from the qevent? (20070306 frodo)
-        soevent.setTime(coin.SbTime.getTimeOfDay())
+        event_ts = None
+        if hasattr(qevent, "timestamp"):
+            try:
+                event_ts = qevent.timestamp()
+            except Exception:
+                event_ts = None
+
+        if event_ts is not None:
+            soevent.setTime(coin.SbTime(event_ts / 1000.0))
+        else:
+            soevent.setTime(coin.SbTime.getTimeOfDay())
 
         # Note: On Mac OS X, the ControlModifier value corresponds to the
         # Command keys on the Macintosh keyboard, and the MetaModifier

@@ -48,4 +48,4 @@ class EventManager:
     def unregisterEventHandler(self, handler):
         """unregister a device"""
         if handler in self.eventhandlers:
-            self.eventhandlers.removeAt(self.eventhandlers.indexOf(handler))
+            self.eventhandlers.remove(handler)

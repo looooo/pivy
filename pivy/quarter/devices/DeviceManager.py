@@ -24,7 +24,7 @@
 """
 from __future__ import print_function
 
-from PySide2.QtCore import QEvent
+from PySide2.QtCore import QEvent, QPoint
 from PySide2.QtGui import QMouseEvent
 from pivy.coin import SoLocation2Event
 from pivy.coin import SbVec2s
@@ -49,6 +49,7 @@ class DeviceManager:
         self.devices = []
         self.quarterwidget = quarterwidget
         self.lastmousepos = SbVec2s(0, 0)
+        self.globalpos = QPoint(0, 0)
 
     def translateEvent(self, qevent):
         """Runs trough the list of registered devices to translate event"""
@@ -88,7 +89,7 @@ class DeviceManager:
         """unregister a device"""
         print("FIXME jkg: unregisterdevice not completely tested/ported")
         if device in self.devices:
-            self.devices.removeAt(self.devices.indexOf(device))
+            self.devices.remove(device)
         else:
             # FIXME jkg: give warning (not in original quarter)
             pass

@@ -229,7 +229,7 @@ class QuarterWidget(QtOpenGL.QGLWidget):
             self.soeventmanager.addSoScXMLStateMachine(sostatemachine)
             sostatemachine.initialize()
         else:
-            raise "could not initialize statemachine, given file not found?"
+            raise RuntimeError("could not initialize statemachine, given file not found?")
 
         self.headlight = coin.SoDirectionalLight()
 

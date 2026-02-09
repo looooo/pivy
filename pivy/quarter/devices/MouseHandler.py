@@ -74,7 +74,15 @@ class MouseHandler(DeviceHandler):
         # value indicates that the wheel was rotated backwards toward the
         # user.
 
-        if qevent.delta() > 0:
+        try:
+            delta = qevent.angleDelta().y()
+        except AttributeError:
+            delta = qevent.delta()
+
+        if delta == 0:
+            return None
+
+        if delta > 0:
             self.mousebutton.setButton(coin.SoMouseButtonEvent.BUTTON4)
         else:
             self.mousebutton.setButton(coin.SoMouseButtonEvent.BUTTON5)

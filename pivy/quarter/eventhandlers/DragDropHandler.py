@@ -54,7 +54,7 @@ class DragDropHandler(EventHandler):
 
         if mimedata.hasUrls():
             fileinfo = QtCore.QFileInfo(mimedata.urls().takeFirst().path())
-            suffix = QtCore.QString(fileinfo.suffix().toLower())
+            suffix = fileinfo.suffix().lower()
 
             if not suffix in self._suffixes: return
 
@@ -67,7 +67,8 @@ class DragDropHandler(EventHandler):
 
         if mimedata.hasUrls():
             url = mimedata.urls().takeFirst()
-            if url.scheme().isEmpty() or url.scheme().toLower() == QtCore.QString("file"):
+            scheme = url.scheme().lower()
+            if not scheme or scheme == "file":
                 # attempt to open file
                 if not input.openFile(url.toLocalFile().toLatin1().constData()): return
         elif mimedata.hasText():
